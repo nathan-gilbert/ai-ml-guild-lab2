@@ -1,0 +1,100 @@
+\documentclass[letterpaper,12pt]{article}
+\usepackage{amssymb,latexsym,amsmath}
+\usepackage{wasysym}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+}
+
+\begin{document}
+
+\begin{flushleft}
+Perceptrons\\
+AI/ML Guild Lab \#2\\
+\today \\
+\end{flushleft}
+
+\section{Introduction}
+
+The \emph{Perceptron} is a linear discrimant model which has an important place
+in Machine Learning as being the first ``neural network''-style algorithm.
+
+Neural Networks, which are pattern recognition systems somewhat based off of
+biological neurons, are incredibly popular today. Perceptrongs were created by
+Frank Rosenblatt, who was a phsychologist attempting to create a mathematical
+model of biological neurons (special cells found in brains.)
+
+\section{The \emph{perceptron} model}
+
+There are $n$ binary inputs given as a vector and exactly the same number of
+weights $W_1, \ldots, W_n$.  These are multiplied together and summed. We denote
+this as $z$ and call it the \emph{pre-activation} stage of the perceptron.
+
+\[
+    z = \sum_{i=1}^{n} W_i x_i = W^{T}x
+\]
+
+We can rewrite this as the inner product of $W$ and $x$. The \emph{inner
+product} is a way to multiply vectors (element-wise) with result of this
+multiplication being a scalar. For further discussion on why these are
+equivalent see
+\href{http://www.sharetechnote.com/html/Handbook_EngMath_Matrix_InnerProduct.html}{this}.
+
+There is another term called \emph{bias} that is a constant. We can incorporate it
+into the weight vector as element $x_0 = 1$ for all our inputs. The
+pre-activation stage then becomes
+
+\[
+    z = \sum_{i=0}^{n} W_i x_i
+\]
+
+This bias term will make more sense when writing code.
+
+Next, comes the non-linear \emph{activation function}, $\sigma$.
+
+\[
+    \sigma(a) =
+    \begin{cases}
+        1, & a \ge 0\\
+        0, & a < 0
+    \end{cases}
+\]
+
+Uniting the pre-activation stage and the activation step gives us the
+mathematical model Rosenblatt created for modelling a single biologic neuron:
+
+\[
+    y(x) = \sigma(z) =  \sigma(W^{T}x)
+\]
+
+$\smiley$
+
+\section{Perceptron Power}
+
+The output of a perceptron is binary, so it can be used for \emph{binary
+classification} e.g. that input belongs in one of two classes. But what
+constraints are there on the types of classes that Perceptrons can discriminant?
+
+Look back at $z$ with the bias term.
+
+\[
+    z = \sum_{i=0}^{N} W_i x_i + b
+\]
+
+What does that look like?
+
+\subsection{Perceptron Limitations}
+
+Perceptrons can only discriminant classes that are \emph{linearly separable}.
+This means there is a line (or plane) that can linearly divide up the two
+classes. See examples \href{https://en.wikipedia.org/wiki/Linear_separability}{here}.
+
+However, the \emph{perceptron convergance theorem} states that if there exists
+a linearly separatable solution then the perceptron learning algorithm is
+guaranteed to find an exact solution in a finite number of steps.
+
+\end{document}
+
