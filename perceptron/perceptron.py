@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class Perceptron(object):
+class Perceptron:
     """Implements a single layer Perceptron """
 
     def __init__(self, input_size, epochs=100, lr=1):
