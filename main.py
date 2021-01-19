@@ -15,4 +15,4 @@ if __name__ == '__main__':
 
     perceptron = Perceptron(input_size=2)
     perceptron.train(X, and_gate_labels)
-    print(perceptron.W)
+    print("Weight vector: ", perceptron.W)
