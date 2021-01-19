@@ -134,3 +134,5 @@ dmypy.json
 *.fls
 *.out
 *.synctex.gz
+*.png
+*.DS_Store

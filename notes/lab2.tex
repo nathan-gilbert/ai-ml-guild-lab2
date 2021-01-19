@@ -1,6 +1,7 @@
 \documentclass[letterpaper,12pt]{article}
 \usepackage{amssymb,latexsym,amsmath}
 \usepackage{wasysym}
+\usepackage{graphicx}
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=true,
@@ -28,6 +29,8 @@ Frank Rosenblatt, who was a phsychologist attempting to create a mathematical
 model of biological neurons (special cells found in brains.)
 
 \section{The \emph{perceptron} model}
+
+\includegraphics[scale=0.5]{1}
 
 There are $n$ binary inputs given as a vector and exactly the same number of
 weights $W_1, \ldots, W_n$.  These are multiplied together and summed. We denote
@@ -91,6 +94,8 @@ What does that look like?
 Perceptrons can only discriminant classes that are \emph{linearly separable}.
 This means there is a line (or plane) that can linearly divide up the two
 classes. See examples \href{https://en.wikipedia.org/wiki/Linear_separability}{here}.
+
+\includegraphics[scale=0.5]{3}
 
 However, the \emph{perceptron convergance theorem} states that if there exists
 a linearly separatable solution then the perceptron learning algorithm is
