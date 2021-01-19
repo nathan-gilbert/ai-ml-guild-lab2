@@ -10,8 +10,9 @@ if __name__ == '__main__':
         [1, 0],
         [1, 1]
     ])
-    d = np.array([0, 0, 0, 1])
+    and_gate_labels = np.array([0, 0, 0, 1])
+    #or_gate_labels = np.array([0, 1, 1, 1])
 
     perceptron = Perceptron(input_size=2)
-    perceptron.train(X, d)
+    perceptron.train(X, and_gate_labels)
     print(perceptron.W)
