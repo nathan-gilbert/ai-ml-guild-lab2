@@ -20,9 +20,13 @@ class Perceptron(object):
         return 1 if x >= 0 else 0
 
     def predict(self, x):
+        # add the bias term
         x = np.insert(x, 0, 1)
+        # W^T * x (inner product)
         z = self.W.T.dot(x)
+        # apply activation function
         a = self.sigma(z)
+        # return predicted label
         return a
 
     def train(self, X, d):
