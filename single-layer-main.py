@@ -21,17 +21,17 @@ if __name__ == '__main__':
     ])
 
     perceptron = Perceptron(input_size=2)
-    and_labels = np.array([0, 0, 0, 1])
+    and_labels = np.array([[0], [0], [0], [1]])
     perceptron.train(binary_ops, and_labels)
     print("1st Weight vector: ", perceptron.W)
 
     show_results(binary_ops, perceptron.W)
-    or_labels = np.array([0, 1, 1, 1])
+    or_labels = np.array([[0], [1], [1], [1]])
     perceptron.train(binary_ops, or_labels)
     print("2nd Weight vector: ", perceptron.W)
     show_results(binary_ops, perceptron.W)
 
-    xor_labels = np.array([0, 1, 1, 0])
+    xor_labels = np.array([[0], [1], [1], [0]])
     perceptron.train(binary_ops, xor_labels)
     print("3rd Weight vector: ", perceptron.W)
     show_results(binary_ops, perceptron.W)

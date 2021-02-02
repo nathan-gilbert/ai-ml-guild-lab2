@@ -23,10 +23,17 @@ if __name__ == '__main__':
         [1, 1]
     ])
 
-    xor_labels = np.array([0, 1, 1, 0])
+    xor_labels = np.array([[0], [1], [1], [0]])
+
+    #X = np.array([[0, 0, 1, 1],
+    #              [0, 1, 0, 1]]).T
+    #y = np.array([[0, 1, 1, 0]]).T
 
     perceptron = MultiLayerPerceptron()
-    errors, params = perceptron.fit(binary_ops, xor_labels, iterations=5000, eta=0.1)
+    errors, params = perceptron.fit(binary_ops,
+                                    xor_labels,
+                                    iterations=5000,
+                                    eta=0.1)
 
     y_pred = perceptron.predict(binary_ops, params["W1"], params["W2"], params["b1"], params["b2"])
     print('Multi-layer perceptron accuracy: %.2f%%' % score(binary_ops, xor_labels, y_pred))
