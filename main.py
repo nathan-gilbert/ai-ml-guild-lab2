@@ -39,11 +39,14 @@ if __name__ == '__main__':
     # Now try some real data
     # Load the data set
     bc = datasets.load_breast_cancer()
-    X = bc.data
+    L = bc.data
     y = bc.target
 
     # Create training and test split
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42, stratify=y)
+    X_train, X_test, y_train, y_test = train_test_split(L, y, test_size=0.3, random_state=42, stratify=y)
 
-    perceptron = Perceptron(input_size=len(X_train))
+    perceptron = Perceptron(input_size=X_train.shape[1], epochs=100, lr=1)
     perceptron.train(X_train, y_train)
+
+    print("Training set accuracy: ", perceptron.score(X_train, y_train))
+    print("Test set accuracy: ", perceptron.score(X_test, y_test))

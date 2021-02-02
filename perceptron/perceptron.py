@@ -40,3 +40,14 @@ class Perceptron(object):
         a = self.sigma(z)
         # return predicted label
         return a
+
+    def score(self, X, y):
+        misclassified_count = 0
+        for x_i, target in zip(X, y):
+            output = self.predict(x_i)
+            if target != output:
+                misclassified_count += 1
+        total_data_count = len(X)
+        return (total_data_count - misclassified_count) / total_data_count
+
+
