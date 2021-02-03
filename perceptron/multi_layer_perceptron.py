@@ -12,20 +12,20 @@ class MultiLayerPerceptron:
 
             Returns:
                 parameters dictionary:
-                    W1: weight matrix, shape = [n_features, n_neurons]
+                    w1: weight matrix, shape = [n_features, n_neurons]
                     b1: bias vector, shape = [1, n_neurons]
                     W2: weight matrix, shape = [n_neurons, n_output]
                     b2: bias vector, shape = [1, n_output]
         """
         np.random.seed(100)  # for reproducibility
-        W1 = np.random.uniform(size=(n_features, n_neurons))
+        w1 = np.random.uniform(size=(n_features, n_neurons))
         b1 = np.random.uniform(size=(1, n_neurons))
-        W2 = np.random.uniform(size=(n_neurons, n_output))
+        w2 = np.random.uniform(size=(n_neurons, n_output))
         b2 = np.random.uniform(size=(1, n_output))
 
-        parameters = {"W1": W1,
+        parameters = {"w1": w1,
                       "b1": b1,
-                      "W2": W2,
+                      "W2": w2,
                       "b2": b2}
         return parameters
 
@@ -66,25 +66,25 @@ class MultiLayerPerceptron:
             E: total squared error"""
         return (np.mean(np.power(A - y, 2))) / 2
 
-    def predict(self, X, w_1, w_2, b_1, b_2):
+    def predict(self, X, w1, w2, b1, b2):
         """computes predictions with learned parameters
 
         Args:
             X: matrix of features vectors
-            w_1: weight matrix for the first layer
-            w_2: weight matrix for the second layer
-            b_1: bias vector for the first layer
-            b_2: bias vector for the second layer
+            w1: weight matrix for the first layer
+            w2: weight matrix for the second layer
+            b1: bias vector for the first layer
+            b2: bias vector for the second layer
 
         Returns:
             d: vector of predicted values
         """
-        z_1 = self.linear(w_1, X, b_1)
-        s_1 = self.sigmoid(z_1)
-        z_2 = self.linear(w_2, s_1, b_2)
-        s_2 = self.sigmoid(z_2)
+        z1 = self.linear(w1, X, b1)
+        s1 = self.sigmoid(z1)
+        z2 = self.linear(w2, s1, b2)
+        s2 = self.sigmoid(z2)
 
-        return np.where(s_2 >= 0.5, 1, 0)
+        return np.where(s2 >= 0.5, 1, 0)
 
     def fit(self, X, y, n_features=2, n_neurons=3, n_output=1, epochs=10,
             lr=0.001):
