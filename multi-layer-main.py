@@ -25,30 +25,43 @@ if __name__ == '__main__':
 
     xor_labels = np.array([[0], [1], [1], [0]])
 
-    #X = np.array([[0, 0, 1, 1],
-    #              [0, 1, 0, 1]]).T
-    #y = np.array([[0, 1, 1, 0]]).T
-
     perceptron = MultiLayerPerceptron()
-    errors, params = perceptron.fit(binary_ops,
-                                    xor_labels,
-                                    iterations=5000,
-                                    eta=0.1)
+    _, params = perceptron.fit(binary_ops,
+                               xor_labels,
+                               epochs=5000,
+                               lr=0.1)
 
-    y_pred = perceptron.predict(binary_ops, params["W1"], params["W2"], params["b1"], params["b2"])
-    print('Multi-layer perceptron accuracy: %.2f%%' % score(binary_ops, xor_labels, y_pred))
+    y_pred = perceptron.predict(binary_ops,
+                                params["W1"],
+                                params["W2"],
+                                params["b1"],
+                                params["b2"])
+    print('Multi-layer perceptron accuracy: %.2f%%' % score(binary_ops,
+                                                            xor_labels,
+                                                            y_pred))
 
     # Now try some real data
     # Load the data set
-    #bc = datasets.load_breast_cancer()
-    #L = bc.data
-    #y = bc.target
+    bc = datasets.load_breast_cancer()
+    L = bc.data
+    y = bc.target
 
     # Create training and test split
-    #X_train, X_test, y_train, y_test = train_test_split(L, y, test_size=0.3, random_state=42, stratify=y)
+    X_train, X_test, y_train, y_test = train_test_split(L,
+                                                        y,
+                                                        test_size=0.3,
+                                                        random_state=42,
+                                                        stratify=y)
 
-    #perceptron = Perceptron(input_size=X_train.shape[1], epochs=100, lr=1)
-    #perceptron.train(X_train, y_train)
+    _, params = perceptron.fit(X_train,
+                               y_train,
+                               n_features=30,
+                               n_neurons=10,
+                               n_output=1,
+                               epochs=1000,
+                               lr=0.25)
+    y_train_pred = perceptron.predict(X_train, params["W1"], params["W2"], params["b1"], params["b2"])
+    y_test_pred = perceptron.predict(X_test, params["W1"], params["W2"], params["b1"], params["b2"])
 
-    #print("Training set accuracy: ", perceptron.score(X_train, y_train))
-    #print("Test set accuracy: ", perceptron.score(X_test, y_test))
+    print("Training set accuracy: ", score(X_train, y_train, y_train_pred[0]))
+    print("Test set accuracy: ", score(X_test, y_test, y_test_pred[0]))

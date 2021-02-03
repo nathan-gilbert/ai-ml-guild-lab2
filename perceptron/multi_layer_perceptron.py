@@ -66,28 +66,28 @@ class MultiLayerPerceptron:
             E: total squared error"""
         return (np.mean(np.power(A - y, 2))) / 2
 
-    def predict(self, X, W1, W2, b1, b2):
+    def predict(self, X, w_1, w_2, b_1, b_2):
         """computes predictions with learned parameters
 
         Args:
-            X: matrix of features
-            W1: weight matrix for the first layer
-            W2: weight matrix for the second layer
-            b1: bias vector for the first layer
-            b2: bias vector for the second layer
+            X: matrix of features vectors
+            w_1: weight matrix for the first layer
+            w_2: weight matrix for the second layer
+            b_1: bias vector for the first layer
+            b_2: bias vector for the second layer
 
         Returns:
             d: vector of predicted values
         """
-        Z1 = self.linear(W1, X, b1)
-        S1 = self.sigmoid(Z1)
-        Z2 = self.linear(W2, S1, b2)
-        S2 = self.sigmoid(Z2)
+        z_1 = self.linear(w_1, X, b_1)
+        s_1 = self.sigmoid(z_1)
+        z_2 = self.linear(w_2, s_1, b_2)
+        s_2 = self.sigmoid(z_2)
 
-        return np.where(S2 >= 0.5, 1, 0)
+        return np.where(s_2 >= 0.5, 1, 0)
 
-    def fit(self, X, y, n_features=2, n_neurons=3, n_output=1, iterations=10,
-            eta=0.001):
+    def fit(self, X, y, n_features=2, n_neurons=3, n_output=1, epochs=10,
+            lr=0.001):
         """Multi-layer perceptron trained with backpropagation
 
         Args:
@@ -96,8 +96,8 @@ class MultiLayerPerceptron:
             n_features (int): number of feature vectors
             n_neurons (int): number of neurons in hidden layer
             n_output (int): number of output neurons
-            iterations (int): number of iterations over the training set
-            eta (float): learning rate
+            epochs (int): number of iterations over the training set
+            lr (float): learning rate
 
         Returns:
             errors (list): list of errors over iterations
@@ -112,33 +112,32 @@ class MultiLayerPerceptron:
         # storage errors after each iteration
         errors = []
 
-        for _ in range(iterations):
+        for _ in range(epochs):
             # Forward-propagation
-            Z1 = self.linear(param['W1'], X, param['b1'])
-            S1 = self.sigmoid(Z1)
-            Z2 = self.linear(param['W2'], S1, param['b2'])
-            S2 = self.sigmoid(Z2)
+            z1 = self.linear(param['W1'], X, param['b1'])
+            s1 = self.sigmoid(z1)
+            z2 = self.linear(param['W2'], s1, param['b2'])
+            s2 = self.sigmoid(z2)
 
             # Error computation
-            error = self.cost(S2, y)
+            error = self.cost(s2, y)
             errors.append(error)
 
             # Back propagation
-
             # update output weights
-            delta2 = (S2 - y) * S2 * (1 - S2)
-            W2_gradients = S1.T @ delta2
-            param["W2"] = param["W2"] - W2_gradients * eta
+            delta2 = (s2 - y) * s2 * (1 - s2)
+            w2_gradients = s1.T @ delta2
+            param['W2'] = param['W2'] - w2_gradients * lr
 
             # update output bias
-            param["b2"] = param["b2"] - np.sum(delta2, axis=0, keepdims=True) * eta
+            param['b2'] = param['b2'] - np.sum(delta2, axis=0, keepdims=True) * lr
 
             # update hidden weights
-            delta1 = (delta2 @ param["W2"].T) * S1 * (1 - S1)
-            W1_gradients = X.T @ delta1
-            param["W1"] = param["W1"] - W1_gradients * eta
+            delta1 = (delta2 @ param['W2'].T) * s1 * (1 - s1)
+            w1_gradients = X.T @ delta1
+            param['W1'] = param['W1'] - w1_gradients * lr
 
             # update hidden bias
-            param["b1"] = param["b1"] - np.sum(delta1, axis=0, keepdims=True) * eta
+            param['b1'] = param['b1'] - np.sum(delta1, axis=0, keepdims=True) * lr
 
         return errors, param
