@@ -40,6 +40,7 @@ if __name__ == '__main__':
                                                             xor_labels,
                                                             y_pred))
 
+    print('Wisconsin BC Dataset')
     # Now try some real data
     # Load the data set
     bc = datasets.load_breast_cancer()
@@ -56,7 +57,7 @@ if __name__ == '__main__':
     _, params = perceptron.fit(X_train,
                                y_train,
                                n_features=30,
-                               n_neurons=10,
+                               n_neurons=30,
                                n_output=1,
                                epochs=1000,
                                lr=0.25)
