@@ -38,6 +38,7 @@ if __name__ == '__main__':
 
     # Now try some real data
     # Load the data set
+    print("Wisconsin Dataset")
     bc = datasets.load_breast_cancer()
     L = bc.data
     y = bc.target
