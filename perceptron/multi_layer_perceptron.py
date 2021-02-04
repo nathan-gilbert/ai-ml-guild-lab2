@@ -30,7 +30,7 @@ class MultiLayerPerceptron:
         w2 = np.random.uniform(size=(n_neurons, n_output))
         b2 = np.random.uniform(size=(1, n_output))
 
-        parameters = {"w1": w1,
+        parameters = {"W1": w1,
                       "b1": b1,
                       "W2": w2,
                       "b2": b2}
@@ -57,7 +57,7 @@ class MultiLayerPerceptron:
             Z: weighted sum of features
 
         Returns:
-            S: neuron activation
+            A: neuron activation
         """
         return 1 / (1 + np.exp(-Z))
 
@@ -73,8 +73,18 @@ class MultiLayerPerceptron:
             E: total squared error"""
         return (np.mean(np.power(A - y, 2))) / 2
 
+    @staticmethod
+    def threshold(a):
+        """
+        Classification output function
+        """
+        return np.where(a >= 0.5, 1, 0)
+
     def predict(self, X, w1, w2, b1, b2):
-        """computes predictions with learned parameters
+        """predicts label from learned parameters
+
+        This is basically forward propagation but stopping at getting
+        a label.
 
         Args:
             X: matrix of features vectors
@@ -86,12 +96,14 @@ class MultiLayerPerceptron:
         Returns:
             d: vector of predicted values
         """
+        # input layer
         z1 = self.linear(w1, X, b1)
-        s1 = self.sigmoid(z1)
-        z2 = self.linear(w2, s1, b2)
-        s2 = self.sigmoid(z2)
+        a1 = self.sigmoid(z1)
+        # hidden layer
+        z2 = self.linear(w2, a1, b2)
+        a2 = self.sigmoid(z2)
 
-        return np.where(s2 >= 0.5, 1, 0)
+        return self.threshold(a2)
 
     def fit(self, X, y, n_features=2, n_neurons=3, n_output=1, epochs=10,
             lr=0.001):
@@ -120,27 +132,30 @@ class MultiLayerPerceptron:
         errors = []
 
         for _ in range(epochs):
-            # Forward-propagation
+            # Forward-propagation again!
+            # input layer
             z1 = self.linear(param['W1'], X, param['b1'])
-            s1 = self.sigmoid(z1)
-            z2 = self.linear(param['W2'], s1, param['b2'])
-            s2 = self.sigmoid(z2)
+            a1 = self.sigmoid(z1)
+            # hidden layer
+            z2 = self.linear(param['W2'], a1, param['b2'])
+            a2 = self.sigmoid(z2)
 
             # Error computation
-            error = self.cost(s2, y)
+            error = self.cost(a2, y)
             errors.append(error)
 
             # Back propagation
             # update output weights
-            delta2 = (s2 - y) * s2 * (1 - s2)
-            w2_gradients = s1.T @ delta2
+            delta2 = (a2 - y) * a2 * (1 - a2)
+            # matrix math is saving us
+            w2_gradients = a1.T @ delta2
             param['W2'] = param['W2'] - w2_gradients * lr
 
             # update output bias
             param['b2'] = param['b2'] - np.sum(delta2, axis=0, keepdims=True) * lr
 
             # update hidden weights
-            delta1 = (delta2 @ param['W2'].T) * s1 * (1 - s1)
+            delta1 = (delta2 @ param['W2'].T) * a1 * (1 - a1)
             w1_gradients = X.T @ delta1
             param['W1'] = param['W1'] - w1_gradients * lr
 
