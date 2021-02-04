@@ -2,6 +2,11 @@ import numpy as np
 
 
 class MultiLayerPerceptron:
+    """
+    Multilayer Perceptron with one hidden layer
+    swiped from https://pabloinsente.github.io/the-multilayer-perceptron
+    """
+
     @staticmethod
     def init_parameters(n_features, n_neurons, n_output):
         """generate initial parameters sampled from an uniform distribution
@@ -17,6 +22,8 @@ class MultiLayerPerceptron:
                     W2: weight matrix, shape = [n_neurons, n_output]
                     b2: bias vector, shape = [1, n_output]
         """
+
+        # Backpropagation is very sensitive to initialization values
         np.random.seed(100)  # for reproducibility
         w1 = np.random.uniform(size=(n_features, n_neurons))
         b1 = np.random.uniform(size=(1, n_neurons))
