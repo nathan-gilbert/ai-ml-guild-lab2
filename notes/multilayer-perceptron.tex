@@ -44,14 +44,14 @@ type of research.
 Rumelhart wanted to train a neural network with multiple
 layers and sigmoidal units instead of threshold units (as in the perceptron)
 or linear units but they did not how to do that. Rumelhart came up with an idea
-called ``Backpropagation'' but it was Hinton that used it in conjunction with
-the training model Rumelhart developed for sigmoidal multilayered perceptrons.
+called ``Back Propagation'' but it was Hinton that used it in conjunction with
+the training model Rumelhart developed for sigmoidal model training.
 
 This is what is typically referred to as a multilayered perceptron today.
 
 \section{The Algorithm}
 
-Formally, a multilayered perceptron is one where these conditions are true:
+Formally, a multilayered perceptron is one where these conditions are present:
 
 \begin{itemize}
     \item a linear function that aggregates the input values
@@ -59,7 +59,7 @@ Formally, a multilayered perceptron is one where these conditions are true:
     \item an output function (i.e.\ a threshold function for classification)
     \item a loss function that computes the overall error of the network
     \item a learning procedure to adjust the weights of the network, i.e., the
-        ``backpropagation'' algorithm
+        ``back propagation'' algorithm
 \end{itemize}
 
 \section{The Math}
@@ -69,7 +69,7 @@ The linear function is very similar to the single layer perceptron. It is a
 weight sum of the inputs plus a bias. The difference is that the weights are
 matrix and no longer a vector.
 \[
-    z_m = \sum_{i=0}^{N} W_{m,n} x_m + b
+    z_m = \sum_{i=0}^{N} W_{m,n} X_m + b
 \]
 
 \subsection{Sigmoid Function}

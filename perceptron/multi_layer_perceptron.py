@@ -25,8 +25,10 @@ class MultiLayerPerceptron:
 
         # Backpropagation is very sensitive to initialization values
         np.random.seed(100)  # for reproducibility
+        # weights & bias for input layer
         w1 = np.random.uniform(size=(n_features, n_neurons))
         b1 = np.random.uniform(size=(1, n_neurons))
+        # weights & bias for hidden layer
         w2 = np.random.uniform(size=(n_neurons, n_output))
         b2 = np.random.uniform(size=(1, n_output))
 
