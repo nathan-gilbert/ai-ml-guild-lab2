@@ -13,7 +13,7 @@
 \begin{document}
 
 \begin{flushleft}
-Perceptrons\\
+Single Layer Perceptrons\\
 AI/ML Guild Lab \#2\\
 \today \\
 \end{flushleft}
@@ -21,12 +21,15 @@ AI/ML Guild Lab \#2\\
 \section{Introduction}
 
 The \emph{Perceptron} is a linear discrimant model which has an important place
-in Machine Learning as being the first ``neural network''-style algorithm.
+in Machine Learning history as the first ``neural network''-style algorithm.
 
 Neural Networks, which are pattern recognition systems somewhat based off of
-biological neurons, are incredibly popular today. Perceptrongs were created by
-Frank Rosenblatt, who was a phsychologist attempting to create a mathematical
-model of biological neurons (special cells found in brains.)
+biological neurons, are incredibly popular today. Technologies like TensorFlow,
+PyTorch and GPT-3 are all built on neural network algorithms.
+
+Perceptrons were created by Frank Rosenblatt, who was a phsychologist
+attempting to create a mathematical model of biological neurons (special cells
+found in brains.)
 
 \section{The \emph{perceptron} model}
 
@@ -77,9 +80,10 @@ $\smiley$
 
 \section{Perceptron Power}
 
-The output of a perceptron is binary, so it can be used for \emph{binary
-classification} e.g. that input belongs in one of two classes. But what
-constraints are there on the types of classes that Perceptrons can discriminant?
+The output of a single layer perceptron is a binary value, so it can be used
+for \emph{binary classification} e.g.\ that input belongs in one of two classes.
+But what constraints are there on the types of classes that Perceptrons can
+discriminate?
 
 Look back at $z$ with the bias term.
 
@@ -87,7 +91,7 @@ Look back at $z$ with the bias term.
     z = \sum_{i=0}^{N} W_i x_i + b
 \]
 
-What does that look like?
+What does this formula look like?
 
 \subsection{Perceptron Limitations}
 
