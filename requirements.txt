@@ -1,6 +1,6 @@
 appnope==0.1.2
 argon2-cffi==21.1.0
-astroid==2.8.3
+astroid==2.5.0
 async-generator==1.10
 attrs==21.2.0
 autopep8==1.5.7
@@ -69,4 +69,4 @@ typing-extensions==3.10.0.2
 wcwidth==0.2.5
 webencodings==0.5.1
 widgetsnbextension==3.5.1
-wrapt==1.13.2
+wrapt==1.12.0
