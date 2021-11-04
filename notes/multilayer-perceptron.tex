@@ -15,9 +15,9 @@
 \section{Multilayer Perceptrons}
 
 It's really a misnomer to call Multilayer Perceptrons \emph{multi-layer}. It's
-not a perceptron with multiple layers but instead it is a network of multiple
-``neuron-like'' processing units but not every layer in the network is a
-perceptron.
+not a multiple layers of perceptrons but instead it is a single network of
+multiple ``neuron-like'' processing units but not every layer in the network
+is a perceptron.
 
 Recall that the perceptron equation:
 
@@ -25,27 +25,34 @@ Recall that the perceptron equation:
     Z = \sum_{i=0}^{N} W_i x_i + b
 \]
 
-What would happen if you applied multiple layers of this equation?
+What does it mean to extend this equation with additional layers?
+
+A single layer perceptron has 2 layers, the input an d the output layer. A
+Multilayer perceptron has at least 3 layers; the same input and output but
+also a layer in between known as a ``hidden layer''.
+
+\includegraphics[scale=0.5]{slp}
 
 \section{History}
 
-Dudes named Rumelhart, Hinton, and Williams introduced/discovered this algorithm
-in the mid-‘80s. Rumelhart was a mathematical pychologist working at UC San
-Diego. He led a research group on neural networks, picking up where Rosenblatt
-left off after the Minksy book pretty much destroyed public funding for this
-type of research.
+After Rosenblatt's Perceptron was discredited in the 60s by a book by Marvin
+Minsky, neural networks weren't really studied again until the 1980s.
+Dudes named Rumelhart, Hinton, and Williams introduced/discovered a new
+training algorithm for what they termed `Multi-Layer Perceptrons'.
+Rumelhart was a mathematical pychologist working at UC San Diego. He led a
+research group on neural networks, picking up where Rosenblatt left off after
+the Minksy book pretty much destroyed public funding for this type of research.
 
-Rumelhart wanted to train a neural network with multiple
-layers and sigmoidal units instead of threshold units (as in the perceptron)
-or linear units but they did not how to do that. Rumelhart came up with an idea
-called ``Back Propagation'' but it was Hinton that used it in conjunction with
-the training model Rumelhart developed for sigmoidal model training.
+Rumelhart wanted to train a neural network with multiple layers. Rumelhart
+came up with an idea called ``Back Propagation'' but it was Hinton that used it
+in conjunction with the training model Rumelhart developed for sigmoidal model
+training.
 
 This is what is typically referred to as a multilayered perceptron today.
 
 \includegraphics[scale=0.5]{mlp-network}
 
-\section{The Algorithm}
+\section{The Definition of a MLP}
 
 Formally, a multilayered perceptron is one where these conditions are present:
 
@@ -79,7 +86,7 @@ The output of the sigmoid function is a vector of size $m$ where every element
 is a unit in the hidden layer.
 
 $a$ stands for activation! Which is typically how the output of the hidden layer
-is described. Using the sigmoid funciton is somewhat arbrary, you can use other
+is described. Using the sigmoid funciton is somewhat arbitrary, you can use other
 non-linear functions here like $\tanh$ or $ReLU$.
 
 \subsection{Output Function}
@@ -111,7 +118,7 @@ Rumelhart came up with was
 This is commonly known as the sum of squared errors function. It's pretty basic
 but often gets the job done.
 
-\subsection{Training: Forward \& Back Propagation}
+\subsection{Training Algorithm: Forward \& Back Propagation}
 
 Multilayer Perceptron training is composed of two steps. Forward propagation
 where information flows forward in the network to compute predictions and the

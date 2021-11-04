@@ -1,6 +1,7 @@
 import numpy as np
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
 from perceptron.multi_layer_perceptron import MultiLayerPerceptron
 
@@ -28,8 +29,8 @@ if __name__ == '__main__':
     perceptron = MultiLayerPerceptron()
     _, params = perceptron.fit(binary_ops,
                                xor_labels,
-                               epochs=5000,
-                               lr=0.1)
+                               epochs=100,
+                               lr=0.50)
 
     y_pred = perceptron.predict(binary_ops,
                                 params["W1"],
@@ -39,30 +40,3 @@ if __name__ == '__main__':
     print('Multi-layer perceptron accuracy: %.2f%%' % score(binary_ops,
                                                             xor_labels,
                                                             y_pred))
-
-    print('Wisconsin BC Dataset')
-    # Now try some real data
-    # Load the data set
-    bc = datasets.load_breast_cancer()
-    L = bc.data
-    y = bc.target
-
-    # Create training and test split
-    X_train, X_test, y_train, y_test = train_test_split(L,
-                                                        y,
-                                                        test_size=0.3,
-                                                        random_state=42,
-                                                        stratify=y)
-
-    _, params = perceptron.fit(X_train,
-                               y_train,
-                               n_features=30,
-                               n_neurons=30,
-                               n_output=1,
-                               epochs=1000,
-                               lr=0.25)
-    y_train_pred = perceptron.predict(X_train, params["W1"], params["W2"], params["b1"], params["b2"])
-    y_test_pred = perceptron.predict(X_test, params["W1"], params["W2"], params["b1"], params["b2"])
-
-    print("Training set accuracy: ", score(X_train, y_train, y_train_pred[0]))
-    print("Test set accuracy: ", score(X_test, y_test, y_test_pred[0]))

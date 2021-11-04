@@ -25,6 +25,7 @@ class MultiLayerPerceptron:
 
         # Backpropagation is very sensitive to initialization values
         np.random.seed(100)  # for reproducibility
+
         # weights & bias for input layer
         w1 = np.random.uniform(size=(n_features, n_neurons))
         b1 = np.random.uniform(size=(1, n_neurons))
@@ -78,14 +79,14 @@ class MultiLayerPerceptron:
     @staticmethod
     def threshold(a):
         """
-        Classification output function
+        Output function that actually does the labelling / classification
         """
         return np.where(a >= 0.5, 1, 0)
 
     def predict(self, X, w1, w2, b1, b2):
         """predicts label from learned parameters
 
-        This is basically forward propagation but stopping at getting
+        This is basically forward propagation but stops after getting
         a label.
 
         Args:
@@ -134,10 +135,12 @@ class MultiLayerPerceptron:
         errors = []
 
         for _ in range(epochs):
-            # Forward-propagation again!
+            # Let's do  Forward propagation again!
             # input layer
             z1 = self.linear(param['W1'], X, param['b1'])
             a1 = self.sigmoid(z1)
+
+            # And again for the hidden layer
             # hidden layer
             z2 = self.linear(param['W2'], a1, param['b2'])
             a2 = self.sigmoid(z2)
@@ -149,6 +152,7 @@ class MultiLayerPerceptron:
             # Back propagation
             # update output weights
             delta2 = (a2 - y) * a2 * (1 - a2)
+
             # matrix math is saving us
             w2_gradients = a1.T @ delta2
             param['W2'] = param['W2'] - w2_gradients * lr
